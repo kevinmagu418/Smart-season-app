@@ -12,6 +12,10 @@ import { Field, FieldStage } from '@smartseason/types';
 import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 
+/**
+ * Detailed view for a specific agricultural field.
+ * Displays field metadata, current stage, and a timeline of logged updates.
+ */
 export default function FieldDetail() {
   const params = useParams();
   const router = useRouter();

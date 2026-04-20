@@ -12,6 +12,10 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { motion } from 'framer-motion';
 
+/**
+ * Fields directory page showing a comprehensive list of all agricultural plots.
+ * Admins can add new fields, while Agents see their assigned plots.
+ */
 export default function Fields() {
   const { fields, loading, fetchFields } = useFields();
   const router = useRouter();

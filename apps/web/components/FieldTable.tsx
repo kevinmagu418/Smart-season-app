@@ -6,6 +6,10 @@ import { StatusBadge } from './StatusBadge';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 
+/**
+ * FieldTable component renders a responsive list of fields.
+ * Dislays as a Table on desktop and a vertical stack of Cards on mobile.
+ */
 export const FieldTable = ({ fields }: { fields: Field[] }) => {
   const router = useRouter();
 
@@ -13,7 +17,7 @@ export const FieldTable = ({ fields }: { fields: Field[] }) => {
 
   return (
     <>
-      {/* Mobile Card View */}
+      {/* Mobile Card View: Optimized for vertical scrolling and touch interaction */}
       <div className="grid grid-cols-1 gap-4 md:hidden">
         {fields.map((field, i) => (
           <motion.div 
@@ -26,7 +30,7 @@ export const FieldTable = ({ fields }: { fields: Field[] }) => {
           >
             <div>
               <Typography variant="subtitle1" className="font-semibold text-gray-900">{field.name}</Typography>
-              <Typography variant="body2" className="text-gray-500 mb-2">{field.cropType} • {field.agent?.name || 'Unassigned'}</Typography>
+              <Typography variant="body2" className="text-gray-500 mb-2">{field.cropType} | {field.agent?.name || 'Unassigned'}</Typography>
               <StatusBadge status={field.stage as any} />
             </div>
             <ChevronRight className="text-gray-400" />
