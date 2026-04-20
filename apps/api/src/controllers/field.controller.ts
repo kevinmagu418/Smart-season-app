@@ -42,4 +42,15 @@ export class FieldController {
       next(error);
     }
   }
+
+  static async assign(req: AuthRequest, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const { agentId } = req.body;
+      const field = await FieldService.assignAgent(id, agentId);
+      res.json(field);
+    } catch (error) {
+      next(error);
+    }
+  }
 }

@@ -1,30 +1,43 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { Box, Toolbar, Typography, CircularProgress } from '@mui/material';
+import { Box, Toolbar, Typography } from '@mui/material';
 import { Navbar } from '../../components/Navbar';
 import { Sidebar } from '../../components/Sidebar';
 import { DashboardStats } from '../../components/DashboardStats';
-import { api } from '../../lib/api';
-import { DashboardStats as StatsType } from '@smartseason/types';
+import { LoadingSkeleton } from '../../components/LoadingSkeleton';
+import { useDashboard } from '../../hooks/useDashboard';
+import { useAuth } from '../../context/AuthContext';
+import { motion } from 'framer-motion';
 
 export default function Dashboard() {
-  const [stats, setStats] = useState<StatsType | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { stats, loading, fetchStats } = useDashboard();
+  const { user } = useAuth();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    api.get('/dashboard').then(res => {
-      setStats(res.data);
-    }).finally(() => setLoading(false));
-  }, []);
+    fetchStats();
+  }, [fetchStats]);
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Navbar />
-      <Sidebar />
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+    <Box className="flex min-h-screen bg-accent-light">
+      <Navbar onMenuClick={() => setMobileOpen(!mobileOpen)} />
+      <Sidebar mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
+      <Box component="main" className="flex-grow p-4 md:p-8 w-full max-w-7xl mx-auto">
         <Toolbar />
-        <Typography variant="h4" mb={4}>Dashboard</Typography>
-        {loading ? <CircularProgress /> : stats && <DashboardStats stats={stats} />}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+          <Typography variant="h4" className="mb-2 font-bold tracking-tight text-gray-900">
+            Welcome back, {user?.name?.split(' ')[0] || 'User'} 👋
+          </Typography>
+          <Typography variant="body1" className="mb-8 text-gray-500">
+            {user?.role === 'ADMIN' ? 'Here is a global overview of all field metrics across the season.' : 'Here is the overview of your currently assigned fields.'}
+          </Typography>
+
+          {loading ? (
+            <LoadingSkeleton count={4} type="card" />
+          ) : stats ? (
+            <DashboardStats stats={stats} />
+          ) : null}
+        </motion.div>
       </Box>
     </Box>
   );

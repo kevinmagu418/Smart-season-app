@@ -33,6 +33,7 @@ export interface Field {
   agent?: User | null;
   createdAt?: string | Date;
   updatedAt?: string | Date;
+  updates?: FieldUpdate[];
 }
 
 export interface FieldUpdate {

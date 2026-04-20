@@ -12,6 +12,7 @@ router.get('/', FieldController.getAll);
 router.post('/', requireRole(['ADMIN']), FieldController.create);
 router.get('/:id', FieldController.getById);
 router.patch('/:id', FieldController.update);
+router.post('/:id/assign', requireRole(['ADMIN']), FieldController.assign);
 
 router.use('/:id/updates', updateRoutes);
 

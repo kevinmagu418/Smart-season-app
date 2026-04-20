@@ -31,6 +31,18 @@ export class FieldService {
   }
 
   static async update(id: string, data: any) {
+    if (data.plantingDate) data.plantingDate = new Date(data.plantingDate);
     return prisma.field.update({ where: { id }, data });
+  }
+
+  static async assignAgent(id: string, agentId: string) {
+    const user = await prisma.user.findUnique({ where: { id: agentId } });
+    if (!user || user.role !== 'AGENT') {
+      throw new Error('Invalid agent ID');
+    }
+    return prisma.field.update({
+      where: { id },
+      data: { assignedAgentId: agentId },
+    });
   }
 }
