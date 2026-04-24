@@ -25,6 +25,9 @@ RUN npm run build
 # Stage 2: Runtime
 FROM node:18-alpine
 
+# Install OpenSSL required by Prisma engine on Alpine
+RUN apk add --no-cache openssl
+
 WORKDIR /app/apps/api
 
 # Copy compiled API
