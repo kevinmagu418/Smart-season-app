@@ -163,7 +163,8 @@ Password: `agent123`
 
 ## Deployment
 
-- **Live URL**: `[INSERT_LIVE_URL_HERE]`
+- **Frontend (Vercel)**: https://smart-season-app-web.vercel.app
+- **Backend (Render)**: https://smart-season-app.onrender.com
 - **Infrastructure**: The system is fully Dockerized for the backend (Render) and uses a high-performance build pipeline for the frontend (Vercel).
 
 ---
