@@ -26,17 +26,17 @@ FROM node:18-alpine
 WORKDIR /app
 
 COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/apps/api/package*.json ./apps/api/
-COPY --from=builder /app/apps/api/dist ./apps/api/dist
-COPY --from=builder /app/apps/api/node_modules ./apps/api/node_modules
-COPY --from=builder /app/apps/api/prisma ./apps/api/prisma
-COPY --from=builder /app/node_modules ./node_modules
-
 WORKDIR /app/apps/api
+COPY --from=builder /app/apps/api/package*.json ./
+COPY --from=builder /app/apps/api/dist ./dist
+COPY --from=builder /app/apps/api/node_modules ./node_modules
+COPY --from=builder /app/apps/api/prisma ./prisma
+COPY --from=builder /app/node_modules ../../node_modules
+
 RUN npx prisma generate
 
 EXPOSE 4000
 
 ENV NODE_ENV=production
 
-CMD ["node", "dist/src/server.js"]
+CMD ["node", "dist/server.js"]
