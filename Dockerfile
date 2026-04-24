@@ -5,7 +5,6 @@ WORKDIR /app
 
 # Copy root configurations
 COPY package*.json ./
-COPY tsconfig.json ./
 
 # Copy packages and apps structure
 COPY packages/ packages/
