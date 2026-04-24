@@ -8,7 +8,6 @@
   ],
   "scripts": {
     "dev": "concurrently \"npm run dev -w web\" \"npm run dev -w api\"",
-    "install": "npm install",
     "build": "npm run build --workspaces"
   },
   "devDependencies": {
