@@ -33,6 +33,7 @@ COPY --from=builder /app/apps/api/prisma ./apps/api/prisma
 COPY --from=builder /app/node_modules ./node_modules
 
 WORKDIR /app/apps/api
+RUN npx prisma generate
 
 EXPOSE 4000
 
