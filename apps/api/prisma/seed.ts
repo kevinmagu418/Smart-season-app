@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import { PrismaClient, Role, FieldStage } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 

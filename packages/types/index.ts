@@ -51,4 +51,5 @@ export interface DashboardStats {
   activeCount: number;
   atRiskCount: number;
   completedCount: number;
+  recentUpdates?: (FieldUpdate & { field: { name: string } })[];
 }
