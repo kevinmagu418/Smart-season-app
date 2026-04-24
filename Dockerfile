@@ -39,4 +39,4 @@ EXPOSE 4000
 
 ENV NODE_ENV=production
 
-CMD ["npm", "run", "start"]
+CMD ["node", "dist/src/server.js"]
